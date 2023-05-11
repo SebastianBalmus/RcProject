@@ -20,13 +20,7 @@ const styleSheet = StyleSheet.create({
     flexDirection: 'column',
     height: '40%',
     width: '100%',
-    gap: 15,
-  },
-  buttonLabel: {
-    fontSize: 15,
-  },
-  textField: {
-    width: '80%',
+    gap: 30,
   },
   paragraphContainer: {
     display: 'flex',
@@ -39,6 +33,12 @@ const styleSheet = StyleSheet.create({
   footer: {
     alignSelf: 'center',
   },
+  buttonLabel: {
+    fontSize: 15,
+  },
+  textField: {
+    width: '80%',
+  },
   paragraph: {
     fontSize: 18,
     textAlign: 'justify',
@@ -46,6 +46,14 @@ const styleSheet = StyleSheet.create({
   emphasizedText: {
     color: theme.colors?.primary,
     fontWeight: 'bold',
+  },
+  headingText: {
+    fontSize: 20,
+  },
+  centerTextContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

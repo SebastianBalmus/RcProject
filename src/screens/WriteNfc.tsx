@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Text, ActivityIndicator, TextInput} from 'react-native-paper';
+import {Button, Text, ActivityIndicator, TextInput, Snackbar} from 'react-native-paper';
 import {View} from 'react-native';
 import NfcManager, {NfcTech, Ndef} from 'react-native-nfc-manager';
 import styleSheet from '../styles/styleSheet';
@@ -7,8 +7,15 @@ import styleSheet from '../styles/styleSheet';
 const WriteNfc: React.FC = () => {
   const [writing, setWriting] = React.useState(false);
   const [content, setContent] = React.useState<string>('');
+  const [statusMessage, setStatusMessage] = React.useState<string>('');
+  const [openSnackbar, setOpenSnackbar] = React.useState<boolean>(false);
 
   const writeTag = async () => {
+    if (content.length < 1) {
+      setStatusMessage('No text provided!');
+      setOpenSnackbar(true);
+      return;
+    }
     setWriting(true);
     try {
       await NfcManager.requestTechnology(NfcTech.Ndef);
@@ -16,11 +23,14 @@ const WriteNfc: React.FC = () => {
       if (bytes) {
         await NfcManager.ndefHandler.writeNdefMessage(bytes);
       }
+      setStatusMessage('Success!');
     } catch (err) {
       console.log('Oops!', err);
+      setStatusMessage('Something went wrong!');
     } finally {
       await NfcManager.cancelTechnologyRequest();
       setWriting(false);
+      setOpenSnackbar(true);
     }
   };
 
@@ -48,6 +58,11 @@ const WriteNfc: React.FC = () => {
           </>
         )}
       </View>
+      <Snackbar
+        visible={openSnackbar}
+        onDismiss={() => setOpenSnackbar(false)}>
+        {statusMessage}
+      </Snackbar>
     </View>
   );
 };
