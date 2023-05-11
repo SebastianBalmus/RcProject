@@ -27,7 +27,7 @@ const ScanNfc: React.FC = () => {
       await NfcManager.cancelTechnologyRequest();
       setScanning(false);
     }
-  }
+  };
 
   const cancelScan = async () => {
     await NfcManager.cancelTechnologyRequest();

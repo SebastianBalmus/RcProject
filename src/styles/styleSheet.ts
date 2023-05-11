@@ -8,7 +8,7 @@ const styleSheet = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
     flexDirection: 'column',
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors?.background,
   },
   title: {
     fontSize: 40,
