@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Text, ActivityIndicator} from 'react-native-paper';
 import {View} from 'react-native';
 import NfcManager, {NfcTech, Ndef} from 'react-native-nfc-manager';
+import uriValidator from '../validators/uriValidator';
 import styleSheet from '../styles/styleSheet';
 
 const ScanNfc: React.FC = () => {
@@ -19,7 +20,13 @@ const ScanNfc: React.FC = () => {
       const tag = await NfcManager.getTag();
       if (tag) {
         console.info('Tag found!', tag);
-        setContent(Ndef.text.decodePayload(tag.ndefMessage[0].payload as unknown as Uint8Array));
+        const uriContent = Ndef.uri.decodePayload(tag.ndefMessage[0].payload as unknown as Uint8Array);
+        const textContent = Ndef.text.decodePayload(tag.ndefMessage[0].payload as unknown as Uint8Array);
+        if (await uriValidator(uriContent)) {
+          setContent(uriContent);
+        } else {
+          setContent(textContent);
+        }
       }
     } catch (err) {
       console.log('Oops!', err);
@@ -40,7 +47,10 @@ const ScanNfc: React.FC = () => {
       <View style={styleSheet.container}>
         {scanning && (
           <>
-            <ActivityIndicator animating />
+            <ActivityIndicator
+              animating
+              size="large"
+            />
             <Button
               mode="contained"
               uppercase

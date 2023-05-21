@@ -18,7 +18,7 @@ const styleSheet = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    height: '40%',
+    height: '50%',
     width: '100%',
     gap: 30,
   },
@@ -36,7 +36,7 @@ const styleSheet = StyleSheet.create({
   buttonLabel: {
     fontSize: 15,
   },
-  textField: {
+  field: {
     width: '80%',
   },
   paragraph: {
